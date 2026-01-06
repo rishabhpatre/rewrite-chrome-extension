@@ -1,0 +1,14 @@
+# System files
+.DS_Store
+
+# Generated files
+extension.zip
+course_data.json
+*.log
+
+# Testing
+test_api.js
+models.json
+
+# Dependencies (if any in future)
+node_modules/
