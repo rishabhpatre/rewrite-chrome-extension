@@ -5,14 +5,15 @@ let activeOverlay = null;
 document.addEventListener('mouseup', handleSelection);
 document.addEventListener('mousedown', (e) => {
     // If clicking outside the icon or modal, close them
-    // Also check if clicking inside the dropdown
-    if (activeDropdown && activeDropdown.contains(e.target)) {
-        return;
+    if (activeIcon && !activeIcon.contains(e.target)) {
+        // Also check if clicking inside the dropdown
+        if (activeDropdown && activeDropdown.contains(e.target)) {
+            return;
+        }
+        setTimeout(() => removeIcon(), 100);
+    } else if (activeIcon) {
+        // Clicked inside
     }
-    setTimeout(() => removeIcon(), 100);
-} else if (activeIcon) {
-    // Clicked inside
-}
     // Note: Modal usually has an overlay to handle closing, or a close button.
     // We'll let the overlay click handler deal with modal closing.
 });
