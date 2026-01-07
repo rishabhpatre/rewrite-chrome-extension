@@ -5,11 +5,14 @@ let activeOverlay = null;
 document.addEventListener('mouseup', handleSelection);
 document.addEventListener('mousedown', (e) => {
     // If clicking outside the icon or modal, close them
-    if (activeIcon && !activeIcon.contains(e.target)) {
-        setTimeout(() => removeIcon(), 100);
-    } else if (activeIcon) {
-        // Clicked inside
+    // Also check if clicking inside the dropdown
+    if (activeDropdown && activeDropdown.contains(e.target)) {
+        return;
     }
+    setTimeout(() => removeIcon(), 100);
+} else if (activeIcon) {
+    // Clicked inside
+}
     // Note: Modal usually has an overlay to handle closing, or a close button.
     // We'll let the overlay click handler deal with modal closing.
 });
@@ -145,7 +148,10 @@ function toggleDropdown(parent, text) {
         items.forEach(item => {
             const row = document.createElement('div');
             row.className = 'rewrite-extension-menu-item';
-            row.onclick = () => processText(item.type, text);
+            row.onclick = (e) => {
+                e.stopPropagation();
+                processText(item.type, text);
+            };
 
             const icon = document.createElement('span');
             icon.className = `rewrite-extension-menu-icon ${item.color}`;
@@ -192,7 +198,6 @@ function toggleDropdown(parent, text) {
     // 3. Project Tools
     dropdown.appendChild(createCategory("PROJECT TOOLS", [
         { label: "Bug", type: "bug", icon: bugRealIcon, color: "icon-red" },
-        { label: "Story", type: "story", icon: storyIcon, color: "icon-green" },
         { label: "Story", type: "story", icon: storyIcon, color: "icon-green" },
         { label: "Task", type: "task", icon: taskIcon, color: "icon-blue" }
     ]));
@@ -253,6 +258,16 @@ function processText(type, text) {
     else if (type === 'summarize') title = "Summarized Text";
     else if (type === 'translate') title = "Translated Text";
     else if (type === 'explain') title = "Explanation";
+    else if (type === 'proofread') title = "Proofread Text";
+    else if (type === 'key_points') title = "Key Points";
+    else if (type === 'action_items') title = "Action Items";
+    else if (type === 'email') title = "Email Draft";
+    else if (type === 'whatsapp') title = "WhatsApp Message";
+    else if (type === 'tweet') title = "Tweet Draft";
+    else if (type === 'bug') title = "Jira Bug Report";
+    else if (type === 'story') title = "Jira User Story";
+    else if (type === 'task') title = "Jira Task";
+    else if (type === 'custom') title = "Custom Result";
 
     showModal("Loading...", title);
 
