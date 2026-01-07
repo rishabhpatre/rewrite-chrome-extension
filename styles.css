@@ -78,6 +78,10 @@
 }
 
 /* Green */
+.icon-yellow {
+  color: #facc15;
+  /* Bright Yellow */
+}
 
 /* Dividers */
 .rewrite-extension-divider {

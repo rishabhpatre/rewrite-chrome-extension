@@ -28,6 +28,16 @@ async function handleGeneration(request) {
       prompt = `You are an AI assistant that summarizes content accurately.\n\nSummarize the provided text by:\n- Capturing the main ideas and key points\n- Preserving the original meaning and intent\n- Using clear, concise language\n- Avoiding unnecessary details or examples\n- Not adding any information that is not in the text\n\nIf the text does not contain enough information, say so clearly.\n\nIMPORTANT: Provide ONLY the summary as output. Do not include any introductory or concluding remarks. Do not use markdown formatting. Use only simple punctuation. Text:\n\n${text}`;
     } else if (type === "translate") {
       prompt = `You are a professional translator.\n\nTask:\n1. Detect the language of the provided text.\n2. If the text is in English, translate it to Hindi.\n3. If the text is in ANY other language (not English), translate it to English.\n\nIMPORTANT: Provide ONLY the translated text as output. Do not include any introductory or concluding remarks (like "Here is the translation" or "Detected language: ..."). Do not use markdown formatting. Use only simple punctuation. Text:\n\n${text}`;
+    } else if (type === "explain") {
+      prompt = `You are a helpful teacher. Explain the following text (or word) in simple layman terms.
+
+- Keep the explanation short, concise, and easy to understand.
+- If it's a single word, define it and give a brief example if helpful.
+- If it's a phrase, explain its meaning in context.
+
+IMPORTANT: Provide ONLY the explanation as output. Do not include introductory phrases like "Here is the explanation". Do not use markdown formatting. Text:
+
+${text}`;
     }
 
     // Call Gemini API

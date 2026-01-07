@@ -73,7 +73,15 @@ function showIcon(x, y, text) {
     // Alternate translate icon (A/文 style is complex in simple SVG, using Globe for now or simple character mapping)
     // Actually, let's use a simpler text-like icon or the user's reference style (A with arrow). 
     const translateIcon2 = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"></path><path d="M4 14h6"></path><path d="M2 5h12"></path><path d="M7 2h1"></path><path d="M22 22l-5-10-5 10"></path><path d="M14 18h6"></path></svg>`;
+    const explainIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"></path></svg>`;
 
+    // Explain
+    container.appendChild(createItem('Explain', 'explain', explainIcon, 'icon-yellow'));
+
+    // Divider
+    const div0 = document.createElement('div');
+    div0.className = 'rewrite-extension-divider';
+    container.appendChild(div0);
 
     // Rewrite
     container.appendChild(createItem('Rewrite', 'rewrite', editIcon, 'icon-blue'));
@@ -112,6 +120,7 @@ function processText(type, text) {
     if (type === 'rewrite') title = "Rewritten Text";
     else if (type === 'summarize') title = "Summarized Text";
     else if (type === 'translate') title = "Translated Text";
+    else if (type === 'explain') title = "Explanation";
 
     showModal("Loading...", title);
 
