@@ -1,18 +1,36 @@
-# Rewrite, Summarize, Translate & Explain - AI Chrome Extension
+# Draftly - AI Writing Companion
 
-A powerful, modern Chrome Extension that brings AI-powered text editing to any webpage. Built with Google's Gemini API.
+**Draftly** is your all-in-one AI writing assistant for Chrome. Select any text on the web to Rewrite, Summarize, Translate, or generate professional content instantly using Google's Gemini API.
 
 ![Logo](icons/icon128.png)
 
-## Features
+## ✨ Features
 
--   **💡 Explain**: Get simple, layman's explanations for any word or phrase.
--   **🖊️ Rewrite**: Professional editing to fix grammar, improve flow, and enhance tone.
--   **📝 Summarize**: Get concise summaries of long articles or text blocks.
--   **文 Translate**: Instantly translate English to Hindi and other languages to English.
--   **modern UI**: Sleek dark-mode interface with a premium floating toolbar.
--   **📋 One-Click Copy**: Easily copy results to your clipboard.
--   **Secure**: Bring your own API Key (BYOK) architecture – no data stored on our servers.
+### ⚡ Core Actions
+-   **🖊️ Rewrite**: Fix grammar, improve flow, and enhance tone.
+-   **📝 Summarize**: concise summaries of long articles.
+-   **文 Translate**: Smart translation (English <-> Hindi/Global languages).
+-   **💡 Explain**: Simple layman's explanations for complex terms.
+
+### 🛠️ Writing Tools
+-   **✅ Proofread**: Fix grammar and spelling without changing tone.
+-   **🔑 Key Points**: Extract bullet points from dense text.
+-   **📋 Action Items**: Identify actionable tasks and to-dos.
+
+### 💬 Social & Platform
+-   **📧 Email**: Draft professional email responses with context.
+-   **📱 WhatsApp**: Convert text into casual, natural messages.
+-   **🐦 Tweet**: Generate compelling, short-form posts (280 chars).
+
+### 🚀 Project Management (Jira/Agile)
+-   **🐞 Bug Report**: Auto-format Selection into a structured Jira Bug.
+-   **📖 User Story**: Generate standard User Stories with Acceptance Criteria.
+-   **⚙️ Task**: Create technical task descriptions instantly.
+
+### 🌟 Power User Features
+-   **✨ Custom Tool**: Define your own AI prompt in Settings (e.g., "Translate to Spanish & add emoji").
+-   **📋 One-Click Copy**: Instantly copy results to clipboard.
+-   **🔒 Secure (BYOK)**: Bring Your Own Key. Your API key is stored locally; no data touches our servers.
 
 ## Installation
 
