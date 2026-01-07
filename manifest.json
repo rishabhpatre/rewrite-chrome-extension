@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Rewrite & Summarize",
+  "name": "Draftly - AI Writing Companion",
   "version": "1.0",
-  "description": "Select text to rewrite or summarize using AI.",
+  "description": "Your global AI writing assistant. Rewrite, summarize, translate, draft replies, and create Jira tickets from any text.",
   "permissions": [
     "activeTab",
     "scripting",
@@ -31,7 +31,7 @@
   ],
   "options_page": "options.html",
   "action": {
-    "default_title": "Rewrite & Summarize Settings",
+    "default_title": "Draftly Settings",
     "default_popup": "options.html"
   }
 }

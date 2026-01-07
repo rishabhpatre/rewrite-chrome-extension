@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Rewrite Extension Options</title>
   <style>
@@ -10,6 +11,7 @@
       justify-content: center;
       padding-top: 50px;
     }
+
     .container {
       background: white;
       padding: 30px;
@@ -17,12 +19,14 @@
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
       width: 400px;
     }
+
     h1 {
       font-size: 1.25rem;
       font-weight: 600;
       color: #111827;
       margin-bottom: 1.5rem;
     }
+
     label {
       display: block;
       font-size: 0.875rem;
@@ -30,6 +34,7 @@
       color: #374151;
       margin-bottom: 0.5rem;
     }
+
     input[type="password"] {
       width: 100%;
       padding: 0.5rem;
@@ -38,6 +43,7 @@
       margin-bottom: 1rem;
       box-sizing: border-box;
     }
+
     button {
       background-color: #2563eb;
       color: white;
@@ -48,9 +54,11 @@
       cursor: pointer;
       width: 100%;
     }
+
     button:hover {
       background-color: #1d4ed8;
     }
+
     .status {
       margin-top: 1rem;
       text-align: center;
@@ -60,14 +68,21 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>Settings</h1>
     <label for="apiKey">Gemini API Key</label>
     <input type="password" id="apiKey" placeholder="Enter your key here" />
+
+    <label for="customPrompt" style="margin-top: 1.5rem;">Custom Tool Prompt</label>
+    <textarea id="customPrompt" rows="4"
+      style="width: 100%; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box; margin-bottom: 1rem; font-family: inherit;"
+      placeholder="e.g., Translate this to French and make it sound like a pirate."></textarea>
     <button id="save">Save</button>
     <div id="status" class="status"></div>
   </div>
   <script src="options.js"></script>
 </body>
+
 </html>

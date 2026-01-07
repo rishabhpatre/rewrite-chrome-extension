@@ -102,8 +102,139 @@ function showIcon(x, y, text) {
     // Translate
     container.appendChild(createItem('Translate', 'translate', translateIcon2, 'icon-green'));
 
+    // Divider
+    const div3 = document.createElement('div');
+    div3.className = 'rewrite-extension-divider';
+    container.appendChild(div3);
+
+    // More / Dropdown Trigger
+    const moreBtn = document.createElement('div');
+    moreBtn.className = 'rewrite-extension-item rewrite-extension-more';
+    moreBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+    moreBtn.onclick = (e) => {
+        e.stopPropagation();
+        toggleDropdown(container, text);
+    };
+    container.appendChild(moreBtn);
+
     document.body.appendChild(container);
     activeIcon = container;
+}
+
+let activeDropdown = null;
+
+function toggleDropdown(parent, text) {
+    if (activeDropdown) {
+        removeDropdown();
+        return;
+    }
+
+    const dropdown = document.createElement('div');
+    dropdown.className = 'rewrite-extension-dropdown';
+
+    // Helper to create category
+    const createCategory = (title, items) => {
+        const cat = document.createElement('div');
+        cat.className = 'rewrite-extension-category';
+
+        const header = document.createElement('div');
+        header.className = 'rewrite-extension-category-title';
+        header.textContent = title;
+        cat.appendChild(header);
+
+        items.forEach(item => {
+            const row = document.createElement('div');
+            row.className = 'rewrite-extension-menu-item';
+            row.onclick = () => processText(item.type, text);
+
+            const icon = document.createElement('span');
+            icon.className = `rewrite-extension-menu-icon ${item.color}`;
+            icon.innerHTML = item.icon;
+
+            const label = document.createElement('span');
+            label.textContent = item.label;
+
+            row.appendChild(icon);
+            row.appendChild(label);
+            cat.appendChild(row);
+        });
+        return cat;
+    };
+
+    // Icons
+    const proofIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>`;
+    const listIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>`;
+    const checkIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>`;
+
+    const mailIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>`;
+    const chatIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>`;
+    const twitterIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>`;
+
+    const bugIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>`; // Car-ish for bug/story differentiation or just specific icons
+    const bugRealIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="4" ry="4"></rect><path d="M8 2v20"></path><path d="M16 2v20"></path><path d="M2 8h20"></path><path d="M2 16h20"></path></svg>`; // Grid
+    const storyIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>`; // Book
+    const taskIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>`; // Clock/Task
+
+    // 1. Writing Tools
+    dropdown.appendChild(createCategory("WRITING TOOLS", [
+        { label: "Proofread", type: "proofread", icon: proofIcon, color: "icon-yellow" },
+        { label: "Key Points", type: "key_points", icon: listIcon, color: "icon-blue" },
+        { label: "Action Items", type: "action_items", icon: checkIcon, color: "icon-red" }
+    ]));
+
+    // 2. Platform Tools
+    dropdown.appendChild(createCategory("PLATFORM TOOLS", [
+        { label: "Email", type: "email", icon: mailIcon, color: "icon-grey" },
+        { label: "Whatsapp", type: "whatsapp", icon: chatIcon, color: "icon-green" },
+        { label: "Tweet", type: "tweet", icon: twitterIcon, color: "icon-blue" }
+    ]));
+
+    // 3. Project Tools
+    dropdown.appendChild(createCategory("PROJECT TOOLS", [
+        { label: "Bug", type: "bug", icon: bugRealIcon, color: "icon-red" },
+        { label: "Story", type: "story", icon: storyIcon, color: "icon-green" },
+        { label: "Story", type: "story", icon: storyIcon, color: "icon-green" },
+        { label: "Task", type: "task", icon: taskIcon, color: "icon-blue" }
+    ]));
+
+    // 4. Custom Tool
+    const starIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
+
+    const customCat = document.createElement('div');
+    customCat.className = 'rewrite-extension-category';
+    const customHeader = document.createElement('div');
+    customHeader.className = 'rewrite-extension-category-title';
+    customHeader.textContent = "YOUR TOOLS";
+    customCat.appendChild(customHeader);
+
+    const row = document.createElement('div');
+    row.className = 'rewrite-extension-menu-item';
+    row.onclick = () => processText("custom", text);
+    const icon = document.createElement('span');
+    icon.className = `rewrite-extension-menu-icon icon-yellow`;
+    icon.innerHTML = starIcon;
+    const label = document.createElement('span');
+    label.textContent = "Custom";
+    row.appendChild(icon);
+    row.appendChild(label);
+    customCat.appendChild(row);
+
+    dropdown.appendChild(customCat);
+
+    // Position it below the toolbar
+    const rect = parent.getBoundingClientRect();
+    dropdown.style.left = `${rect.left}px`;
+    dropdown.style.top = `${rect.bottom + 8}px`;
+
+    document.body.appendChild(dropdown);
+    activeDropdown = dropdown;
+}
+
+function removeDropdown() {
+    if (activeDropdown) {
+        activeDropdown.remove();
+        activeDropdown = null;
+    }
 }
 
 function removeIcon() {
@@ -111,6 +242,7 @@ function removeIcon() {
         activeIcon.remove();
         activeIcon = null;
     }
+    removeDropdown();
 }
 
 function processText(type, text) {

@@ -14,7 +14,7 @@ async function handleGeneration(request) {
   try {
     const { type, text } = request;
     // Retrieve API key from storage
-    const data = await chrome.storage.sync.get("geminiApiKey");
+    const data = await chrome.storage.sync.get(["geminiApiKey", "customPrompt"]);
     const apiKey = data.geminiApiKey;
 
     if (!apiKey) {
@@ -29,15 +29,39 @@ async function handleGeneration(request) {
     } else if (type === "translate") {
       prompt = `You are a professional translator.\n\nTask:\n1. Detect the language of the provided text.\n2. If the text is in English, translate it to Hindi.\n3. If the text is in ANY other language (not English), translate it to English.\n\nIMPORTANT: Provide ONLY the translated text as output. Do not include any introductory or concluding remarks (like "Here is the translation" or "Detected language: ..."). Do not use markdown formatting. Use only simple punctuation. Text:\n\n${text}`;
     } else if (type === "explain") {
-      prompt = `You are a helpful teacher. Explain the following text (or word) in simple layman terms.
+      prompt = `You are a helpful teacher. Explain the following text (or word) in simple layman terms.\n\n- Keep the explanation short, concise, and easy to understand.\n- If it's a single word, define it and give a brief example if helpful.\n- If it's a phrase, explain its meaning in context.\n\nIMPORTANT: Provide ONLY the explanation as output. Do not include introductory phrases like "Here is the explanation". Do not use markdown formatting. Text:\n\n${text}`;
 
-- Keep the explanation short, concise, and easy to understand.
-- If it's a single word, define it and give a brief example if helpful.
-- If it's a phrase, explain its meaning in context.
+      // Writing Tools
+    } else if (type === "proofread") {
+      prompt = `You are a professional editor. Proofread the text for grammar, spelling, and punctuation errors ONLY. Do not change the style or tone. Return the corrected text only.\n\nText:\n${text}`;
+    } else if (type === "key_points") {
+      prompt = `Extract the key points from the text as concise bullet points. Use the author's wording where possible. Do not add new information. If no clear key points exist, say so.\n\nText:\n${text}`;
+    } else if (type === "action_items") {
+      prompt = `Extract clear action items from the text. Write each action as a short imperative sentence. Do not infer or add tasks. If no action items are present, say "No action items found."\n\nText:\n${text}`;
 
-IMPORTANT: Provide ONLY the explanation as output. Do not include introductory phrases like "Here is the explanation". Do not use markdown formatting. Text:
+      // Platform Tools 
+    } else if (type === "email") {
+      prompt = `Write a clear, well-structured email based on the text. Preserve the original intent and tone. Improve grammar, clarity, and flow without adding new information.\n\nText:\n${text}`;
+    } else if (type === "whatsapp") {
+      prompt = `Rewrite the text as a WhatsApp message. Keep it short, conversational, and natural. Preserve the original tone and intent. Avoid formal language unless present in the text.\n\nText:\n${text}`;
+    } else if (type === "tweet") {
+      prompt = `Write a single tweet (max 280 characters) that captures the core idea of the text. Preserve the original tone and do not add new information.\n\nText:\n${text}`;
 
-${text}`;
+      // Project Tools (Jira/Agile)
+    } else if (type === "bug") {
+      prompt = `Convert the text into a JIRA bug ticket with a clear title, description, steps to reproduce, expected result, and actual result. Use only the information provided. If details are missing, write "Not provided".\n\nText:\n${text}`;
+    } else if (type === "story") {
+      prompt = `Convert the text into a JIRA user story using the format: As a <user>, I want <goal>, so that <benefit>. Include acceptance criteria as bullet points. Use only the information provided.\n\nText:\n${text}`;
+    } else if (type === "task") {
+      prompt = `Convert the text into a JIRA task with a clear title, description, and bullet-pointed subtasks if applicable. Do not include user story or bug language. Use only the information provided.\n\nText:\n${text}`;
+
+      // Custom Tool
+    } else if (type === "custom") {
+      const customPrompt = data.customPrompt;
+      if (!customPrompt || customPrompt.trim() === "") {
+        return { error: "Custom Prompt not set. Please go to Extension Options to configure it." };
+      }
+      prompt = `${customPrompt}\n\nText:\n${text}`;
     }
 
     // Call Gemini API
