@@ -1,4 +1,4 @@
-# Rewrite & Summarize - Chrome Extension
+# Rewrite, Summarize & Explain - AI Chrome Extension
 
 A powerful, modern Chrome Extension that brings AI-powered text editing to any webpage. Built with Google's Gemini API.
 
@@ -6,6 +6,7 @@ A powerful, modern Chrome Extension that brings AI-powered text editing to any w
 
 ## Features
 
+-   **💡 Explain**: Get simple, layman's explanations for any word or phrase.
 -   **🖊️ Rewrite**: Professional editing to fix grammar, improve flow, and enhance tone.
 -   **📝 Summarize**: Get concise summaries of long articles or text blocks.
 -   **文 Translate**: Instantly translate English to Hindi and other languages to English.
