@@ -30,7 +30,8 @@ A powerful, modern Chrome Extension that brings AI-powered text editing to any w
 This extension processes text only when you explicitly click a button. Data is sent directly to the Google Gemini API for processing. Your API key is stored locally in your browser (`chrome.storage.sync`) and is never shared.
 
 ## Screenshots
-<img width="544" height="139" alt="image" src="https://github.com/user-attachments/assets/137f7cb4-0cc4-486b-9e6d-03b46c83cfd5" />
+<img width="539" height="192" alt="image" src="https://github.com/user-attachments/assets/662f5510-cebb-4ad0-8d5c-e4473df2738d" />
+
 
 
 
