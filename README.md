@@ -49,7 +49,7 @@
 This extension processes text only when you explicitly click a button. Data is sent directly to the Google Gemini API for processing. Your API key is stored locally in your browser (`chrome.storage.sync`) and is never shared.
 
 ## Screenshots
-<img width="539" height="192" alt="image" src="https://github.com/user-attachments/assets/662f5510-cebb-4ad0-8d5c-e4473df2738d" />
+![Draftly Demo](screenshots/demo.png)
 
 
 
