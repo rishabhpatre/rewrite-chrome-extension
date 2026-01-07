@@ -265,9 +265,9 @@ function processText(type, text) {
     else if (type === 'email') title = "Email Draft";
     else if (type === 'whatsapp') title = "WhatsApp Message";
     else if (type === 'tweet') title = "Tweet Draft";
-    else if (type === 'bug') title = "Jira Bug Report";
-    else if (type === 'story') title = "Jira User Story";
-    else if (type === 'task') title = "Jira Task";
+    else if (type === 'bug') title = "Bug";
+    else if (type === 'story') title = "Story";
+    else if (type === 'task') title = "Task";
     else if (type === 'custom') title = "Custom Result";
 
     showModal("Loading...", title);
