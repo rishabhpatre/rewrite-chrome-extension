@@ -18,7 +18,7 @@ document.getElementById('save').addEventListener('click', () => {
     const provider = providerSelect.value;
     const geminiApiKey = document.getElementById('geminiApiKey').value;
     const openaiApiKey = document.getElementById('openaiApiKey').value;
-    const englishLevel = document.getElementById('englishLevel').value;
+    const languageLevel = document.getElementById('languageLevel').value;
 
     // Custom Tools
     const customName1 = document.getElementById('customName1').value;
@@ -32,7 +32,7 @@ document.getElementById('save').addEventListener('click', () => {
         selectedProvider: provider,
         geminiApiKey,
         openaiApiKey,
-        englishLevel,
+        languageLevel,
         customName1, customPrompt1,
         customName2, customPrompt2,
         customName3, customPrompt3
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedProvider: 'gemini',
         geminiApiKey: '',
         openaiApiKey: '',
-        englishLevel: 'neutral',
+        languageLevel: 'neutral',
         customName1: '', customPrompt1: '',
         customName2: '', customPrompt2: '',
         customName3: '', customPrompt3: ''
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         providerSelect.value = items.selectedProvider;
         document.getElementById('geminiApiKey').value = items.geminiApiKey;
         document.getElementById('openaiApiKey').value = items.openaiApiKey;
-        document.getElementById('englishLevel').value = items.englishLevel;
+        document.getElementById('languageLevel').value = items.languageLevel;
 
         // Trigger visibility update
         providerSelect.dispatchEvent(new Event('change'));

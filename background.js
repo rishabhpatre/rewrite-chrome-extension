@@ -12,7 +12,7 @@ async function handleGeneration(request, sendResponse) {
   // Fetch Config (Keys + Prompts + Style)
   const config = await chrome.storage.sync.get([
     "selectedProvider", "geminiApiKey", "openaiApiKey",
-    "englishLevel",
+    "languageLevel",
     "customPrompt1", "customPrompt2", "customPrompt3"
   ]);
 
@@ -20,14 +20,14 @@ async function handleGeneration(request, sendResponse) {
     const { type, text } = request;
 
     // Determine Style Instruction
-    const level = config.englishLevel || 'neutral';
+    const level = config.languageLevel || 'neutral';
     let styleInstruction = "";
     if (level === 'simple') {
-      styleInstruction = "STYLE: Use simple, commonly used English. Prefer short sentences. Avoid uncommon or academic words.";
+      styleInstruction = "STYLE: Use simple, commonly used language. Prefer short sentences. Avoid uncommon or academic words.";
     } else if (level === 'professional') {
-      styleInstruction = "STYLE: Use professional, polished English without sounding formal, verbose, or academic.";
+      styleInstruction = "STYLE: Use professional, polished language without sounding formal, verbose, or academic.";
     } else {
-      styleInstruction = "STYLE: Use clear, natural, modern English.";
+      styleInstruction = "STYLE: Use clear, natural, modern language.";
     }
 
     let prompt = "";
@@ -51,8 +51,8 @@ async function handleGeneration(request, sendResponse) {
     } else if (type === "action_items") {
       prompt = withStyle(`Extract clear action items from the text. Write each action as a short imperative sentence. Do not infer or add tasks. If no action items are present, say "No action items found." Do NOT use markdown bold/italics.\n\nText:\n${text}`);
     } else if (type === "simplify") {
-      // Simplify already enforces simple English, but reinforcing it is fine.
-      prompt = withStyle(`Simplify the text using clear, commonly used English.\n\nRewrite the text so that:\n- The meaning and intent remain exactly the same\n- Sentences are shorter and easier to read\n- Complex or uncommon words are replaced with simple, everyday language\n- The tone remains neutral and natural\n- No information is added or removed\n\nIf the text is already simple and clear, return it unchanged.\n\nText:\n${text}`);
+      // Simplify already enforces simple language, but reinforcing it is fine.
+      prompt = withStyle(`Simplify the text using clear, commonly used language.\n\nRewrite the text so that:\n- The meaning and intent remain exactly the same\n- Sentences are shorter and easier to read\n- Complex or uncommon words are replaced with simple, everyday language\n- The tone remains neutral and natural\n- No information is added or removed\n\nIf the text is already simple and clear, return it unchanged.\n\nText:\n${text}`);
 
       // Platform Tools 
     } else if (type === "email") {
