@@ -15,13 +15,20 @@
 ### 💬 Reply Tools (New!)
 *Perfect for LinkedIn, Twitter, and Email.*
 - **🚀 Smart Reply**: Context-aware high-quality replies.
+- **🔥 Roast**: Witty, playful roasts (use responsibly!).
 - **❤️ Appreciate**: Thoughtful appreciation messages.
 - **🤔 Question**: Ask insightful follow-up questions.
-- **🔥 Critique & Counter**: Constructive professional disagreements.
-- **🤝 Accept/Reject**: Polite professional responses.
+- **🤝 Accept/Reject**: Polite professional responses and more.
+
+### 🌍 Language Level Control (New!)
+Customize the tone of *every* output globally:
+- **Simple**: Everyday language, short sentences.
+- **Neutral**: Standard, clear communication (Default).
+- **Professional**: Polished, corporate-ready tone.
 
 ### 🛠️ Writing Tools
 - **✅ Proofread**: Fix grammar/spelling instantly.
+- **✂️ Simplify**: Make complex text easy to understand.
 - **🔑 Key Points**: Extract bullet points.
 - **📋 Action Items**: Identify tasks and to-dos.
 
