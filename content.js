@@ -227,13 +227,33 @@ function toggleDropdown(parent, text) {
 
     dropdown.appendChild(customCat);
 
-    // Position it below the toolbar
+    // Position it below the toolbar by default
     const rect = parent.getBoundingClientRect();
-    dropdown.style.left = `${rect.left}px`;
-    dropdown.style.top = `${rect.bottom + 8}px`;
+    const scrollX = window.scrollX || window.pageXOffset;
+    const scrollY = window.scrollY || window.pageYOffset;
+
+    // Initial placement (invisible/below to measure)
+    dropdown.style.opacity = '0';
+    dropdown.style.left = `${rect.left + scrollX}px`;
+    dropdown.style.top = `${rect.bottom + scrollY + 8}px`;
 
     document.body.appendChild(dropdown);
     activeDropdown = dropdown;
+
+    // Smart Positioning
+    const dropdownRect = dropdown.getBoundingClientRect();
+    const spaceBelow = window.innerHeight - rect.bottom;
+
+    // If not enough space below (and enough above), move it above
+    if (spaceBelow < dropdownRect.height && rect.top > dropdownRect.height) {
+        dropdown.style.top = `${rect.top + scrollY - dropdownRect.height - 8}px`;
+        // Optional: Animate from bottom up? Keep simple fade for now.
+    }
+
+    // Make visible
+    // Force reflow to ensure transition works if we had one, but we used animation.
+    // Reset opacity to let CSS take over (or set to 1)
+    dropdown.style.opacity = '1';
 }
 
 function removeDropdown() {
