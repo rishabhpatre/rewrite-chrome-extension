@@ -11,15 +11,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 async function handleGeneration(request) {
+  // Fetch Config (Keys + Prompts)
+  const config = await chrome.storage.sync.get(["selectedProvider", "geminiApiKey", "openaiApiKey", "customPrompt1", "customPrompt2", "customPrompt3"]);
+
   try {
     const { type, text } = request;
-    // Retrieve API key from storage
-    const data = await chrome.storage.sync.get(["geminiApiKey", "customPrompt1", "customPrompt2", "customPrompt3"]);
-    const apiKey = data.geminiApiKey;
-
-    if (!apiKey) {
-      return { error: "API Key not set. Please right-click the extension icon > Options to set your Gemini API Key." };
-    }
+    // Keys retrieved later based on provider selection
 
     let prompt;
     if (type === "rewrite") {
@@ -75,9 +72,9 @@ async function handleGeneration(request) {
 
     } else if (type === "custom1" || type === "custom2" || type === "custom3") {
       let customPrompt = "";
-      if (type === "custom1") customPrompt = data.customPrompt1;
-      if (type === "custom2") customPrompt = data.customPrompt2;
-      if (type === "custom3") customPrompt = data.customPrompt3;
+      if (type === "custom1") customPrompt = config.customPrompt1;
+      if (type === "custom2") customPrompt = config.customPrompt2;
+      if (type === "custom3") customPrompt = config.customPrompt3;
 
       if (!customPrompt || customPrompt.trim() === "") {
         return { error: `Custom Prompt for ${type.replace('custom', 'Tool ')} not set. Please Configure Options.` };
@@ -97,32 +94,87 @@ Text:
 ${text}`;
     }
 
-    // Call Gemini API
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }]
-      })
-    });
+    // --- API Call ---
+    const provider = config.selectedProvider || 'gemini';
+    let result = "";
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      return { error: `API Error: ${response.status} - ${errorText}` };
-    }
-
-    const result = await response.json();
-    const generatedText = result.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    if (generatedText) {
-      return { success: true, data: generatedText };
+    if (provider === 'openai') {
+      const apiKey = config.openaiApiKey;
+      if (!apiKey) {
+        sendResponse({ error: "OpenAI API Key is missing. Please set it in Options." });
+        return;
+      }
+      result = await callOpenAI(apiKey, prompt);
     } else {
-      return { error: "No response from AI." };
+      // Default to Gemini
+      const apiKey = config.geminiApiKey;
+      if (!apiKey) {
+        sendResponse({ error: "Gemini API Key is missing. Please set it in Options." });
+        return;
+      }
+      result = await callGemini(apiKey, prompt);
     }
 
-  } catch (err) {
-    return { error: err.message };
+    sendResponse({ success: true, data: result });
+
+  } catch (error) {
+    console.error("Error:", error);
+    sendResponse({ error: error.message || "An error occurred." });
   }
+}
+
+// --- API Helpers ---
+
+async function callOpenAI(apiKey, userPrompt) {
+  const url = "https://api.openai.com/v1/chat/completions";
+
+  // System instruction is implicit in prompt for now, or we can use "system" role if we structure it.
+  // Our prompts are currently single-string "Instruction + Text". 
+  // We'll send it as a User message, effectively fine.
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({
+      model: "gpt-4o-mini", // Cost effective, fast, smart
+      messages: [
+        { role: "system", content: "You are a helpful AI writing assistant. Output plain text only. no markdown." },
+        { role: "user", content: userPrompt }
+      ],
+      temperature: 0.7
+    })
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error?.message || "OpenAI API Error");
+  }
+
+  return data.choices[0].message.content.trim();
+}
+
+async function callGemini(apiKey, prompt) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      contents: [{
+        parts: [{ text: prompt }]
+      }]
+    })
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error?.message || "Gemini API Error");
+  }
+
+  return data.candidates[0].content.parts[0].text.trim();
 }
