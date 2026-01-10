@@ -174,7 +174,7 @@ async function callOpenAI(apiKey, userPrompt) {
     if (response.status === 429) {
       throw new Error("Quota exceeded! 😅 Try a different key/LLM in Options, or see you in 24 hours! ⏳");
     }
-    throw new Error(data.error?.message || "OpenAI API Error");
+    throw new Error("Looks like we ran into an issue on our side.\nThe team is looking into it. Please try again shortly.");
   }
 
   return data.choices[0].message.content.trim();
@@ -200,7 +200,7 @@ async function callGemini(apiKey, prompt) {
     if (response.status === 429) {
       throw new Error("Looks like we’ve hit today’s usage limit. 😅\nTake a breather — access resets in 24 hours, or you can switch models in settings.");
     }
-    throw new Error(data.error?.message || "Gemini API Error");
+    throw new Error("Looks like we ran into an issue on our side.\nThe team is looking into it. Please try again shortly.");
   }
 
   return data.candidates[0].content.parts[0].text.trim();
