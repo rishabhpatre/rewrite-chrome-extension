@@ -198,7 +198,7 @@ async function callGemini(apiKey, prompt) {
   const data = await response.json();
   if (!response.ok) {
     if (response.status === 429) {
-      throw new Error("Quota exceeded! 😅 Try a different key/LLM in Options, or see you in 24 hours! ⏳");
+      throw new Error("Looks like we’ve hit today’s usage limit. 😅\nTake a breather — access resets in 24 hours, or you can switch models in settings.");
     }
     throw new Error(data.error?.message || "Gemini API Error");
   }
