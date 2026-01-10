@@ -2,7 +2,7 @@
 
 **Draftly** is the ultimate AI writing copilot for Chrome. Select any text on the web to Rewrite, Reply, Translate, or generate professional content instantly using **Google Gemini** or **OpenAI (ChatGPT)**.
 
-![Logo](icons/icon128.png)
+![Logo](icons/neon_trans_128.png)
 
 ## ✨ Features
 
@@ -31,6 +31,7 @@ Customize the tone of *every* output globally:
 - **✂️ Simplify**: Make complex text easy to understand.
 - **🔑 Key Points**: Extract bullet points.
 - **📋 Action Items**: Identify tasks and to-dos.
+- **📖 Synonyms**: Find better context-aware words.
 
 ### 🚀 Project Management
 - **🐞 Bug Report**: Auto-format Selection into a Jira Bug.
@@ -60,7 +61,13 @@ Customize the tone of *every* output globally:
 This extension processes text only when you explicitly click a button. Data is sent directly to the AI provider (Google or OpenAI) for processing. Your keys are stored locally (`chrome.storage.sync`) and are never shared.
 
 ## Screenshots
-![Draftly Demo](screenshots/demo.png)
+
+### 🖥️ Smart Dashboard
+![Dashboard](images/menu_screenshot.png)
+
+### ⚙️ Options & Customization
+![Options](images/options_screenshot_1.png)
+![Custom Tools](images/options_screenshot_2.png)
 
 
 
