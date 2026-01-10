@@ -3,14 +3,12 @@
 // Listener for messages from content.js
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "generate_text") {
-    handleGeneration(request).then(response => {
-      sendResponse(response);
-    });
+    handleGeneration(request, sendResponse);
     return true; // Will respond asynchronously
   }
 });
 
-async function handleGeneration(request) {
+async function handleGeneration(request, sendResponse) {
   // Fetch Config (Keys + Prompts)
   const config = await chrome.storage.sync.get(["selectedProvider", "geminiApiKey", "openaiApiKey", "customPrompt1", "customPrompt2", "customPrompt3"]);
 
