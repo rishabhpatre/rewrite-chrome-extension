@@ -36,17 +36,23 @@ function handleSelection(e) {
     if (text.length > 0) {
         const range = selection.getRangeAt(0);
         const rect = range.getBoundingClientRect();
-        showIcon(rect.left + window.scrollX, rect.bottom + window.scrollY, text);
+        showIcon(rect, text);
     }
 }
 
-function showIcon(x, y, text) {
+function showIcon(selectionRect, text) {
     removeIcon(); // Ensure no duplicates
 
     const container = document.createElement('div');
     container.className = 'rewrite-extension-toolbar'; // Renamed for clarity
-    container.style.left = `${x}px`;
-    container.style.top = `${y + 10}px`;
+
+    // Initial render: invisible to measure dimensions
+    container.style.opacity = '0';
+    container.style.left = '0px';
+    container.style.top = '0px';
+    document.body.appendChild(container); // Append temporarily to measure
+
+    // Helper to create toolbar items (defined before use in full implementation, assuming it exists below)
 
     // Helper to create toolbar items
     const createItem = (label, type, iconSvg, colorClass) => {
@@ -121,7 +127,31 @@ function showIcon(x, y, text) {
     };
     container.appendChild(moreBtn);
 
-    document.body.appendChild(container);
+    // --- Positioning Logic ---
+    const toolbarRect = container.getBoundingClientRect();
+    const scrollX = window.scrollX || window.pageXOffset;
+    const scrollY = window.scrollY || window.pageYOffset;
+    const margin = 10;
+
+    let finalTop = selectionRect.bottom + scrollY + margin;
+    // Default: Align left with selection (or center? Left is standard)
+    let finalLeft = selectionRect.left + scrollX;
+
+    // Check if enough space below
+    const spaceBelow = window.innerHeight - selectionRect.bottom;
+
+    // If cramped below (< toolbar height + margin), move ABOVE
+    if (spaceBelow < (toolbarRect.height + margin)) {
+        // Position above: Selection Top - Toolbar Height - Margin
+        finalTop = selectionRect.top + scrollY - toolbarRect.height - margin;
+    }
+
+    // Apply coordinates
+    container.style.left = `${finalLeft}px`;
+    container.style.top = `${finalTop}px`;
+    container.style.opacity = '1';
+
+    // We already appended it at the start, so just update activeIcon
     activeIcon = container;
 }
 
