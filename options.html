@@ -97,12 +97,15 @@
     textarea {
       width: 100%;
       padding: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      background: #f9fafb;
+      border: 1px solid #d1d5db;
       border-radius: 6px;
-      color: #e2e8f0;
+      color: #111827;
+      /* Dark text for visibility */
       font-family: 'Inter', sans-serif;
       font-size: 14px;
+      font-weight: 500;
       outline: none;
       transition: border-color 0.2s;
     }
@@ -136,7 +139,7 @@
     <div class="input-group">
       <label for="providerSelect">AI Model Provider</label>
       <select id="providerSelect"
-        style="width: 100%; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; color: #e2e8f0; font-family: 'Inter', sans-serif; outline: none;">
+        style="width: 100%; padding: 10px; background: #f9fafb; border: 1px solid #d1d5db; border-radius: 6px; color: #111827; font-family: 'Inter', sans-serif; font-weight: 500; outline: none;">
         <option value="gemini">Google Gemini</option>
         <option value="openai">OpenAI (ChatGPT)</option>
       </select>
@@ -145,54 +148,62 @@
     <div id="geminiGroup" class="input-group">
       <label for="geminiApiKey">Gemini API Key</label>
       <input type="password" id="geminiApiKey" placeholder="Enter your Gemini API key" />
-      <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">Free tier available.</div>
+      <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">
+        Free tier available. <a href="https://aistudio.google.com/app/apikey" target="_blank"
+          style="color: #2563eb; text-decoration: none;">Get your Gemini API Key here →</a>
+      </div>
     </div>
 
     <div id="openaiGroup" class="input-group" style="display: none;">
       <label for="openaiApiKey">OpenAI API Key</label>
       <input type="password" id="openaiApiKey" placeholder="sk-..." />
-      <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">Standard ChatGPT usage rates apply.</div>
+      <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">
+        Standard ChatGPT usage rates apply. <a href="https://platform.openai.com/api-keys" target="_blank"
+          style="color: #2563eb; text-decoration: none;">Get your OpenAI API Key here →</a>
+      </div>
     </div>
 
     <div class="input-group">
-      <label for="languageLevel">Language Level</label>
-      <select id="languageLevel"
-        style="width: 100%; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; color: #e2e8f0; font-family: 'Inter', sans-serif; outline: none;">
-        <option value="neutral">Neutral (Default)</option>
-        <option value="simple">Simple (Everyday Language)</option>
-        <option value="professional">Professional</option>
-      </select>
-      <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">Applies to all writing and replies.</div>
-    </div>
+      <div class="input-group">
+        <label for="languageLevel">Language Level</label>
+        <select id="languageLevel"
+          style="width: 100%; padding: 10px; background: #f9fafb; border: 1px solid #d1d5db; border-radius: 6px; color: #111827; font-family: 'Inter', sans-serif; font-weight: 500; outline: none;">
+          <option value="neutral">Neutral (Default)</option>
+          <option value="simple">Simple (Everyday Language)</option>
+          <option value="professional">Professional</option>
+        </select>
+        <div style="font-size: 12px; color: #6b7280; margin-top: 4px;">Applies to all writing and replies.</div>
+      </div>
 
-    <div class="section-title">Your Custom Tools</div>
-    <div class="section-subtitle">Define up to 3 custom AI tools. Give them a name (e.g., "Fix Grammar") and an
-      instruction (e.g., "Fix grammar and keep it professional").</div>
+      <div class="section-title">Your Custom Tools</div>
+      <div class="section-subtitle">Define up to 3 custom AI tools. Give them a name (e.g., "Fix Grammar") and an
+        instruction (e.g., "Fix grammar and keep it professional").</div>
 
-    <!-- Custom Tool 1 -->
-    <div class="input-group">
-      <label>Tool 1</label>
-      <input type="text" id="customName1" placeholder="Name (e.g., Summarize Brief)" class="tool-name-input">
-      <textarea id="customPrompt1" placeholder="Instruction (e.g., Summarize this in 3 bullet points...)"></textarea>
-    </div>
+      <!-- Custom Tool 1 -->
+      <div class="input-group">
+        <label>Tool 1</label>
+        <input type="text" id="customName1" placeholder="Name (e.g., Summarize Brief)" class="tool-name-input">
+        <textarea id="customPrompt1" placeholder="Instruction (e.g., Summarize this in 3 bullet points...)"></textarea>
+      </div>
 
-    <!-- Custom Tool 2 -->
-    <div class="input-group">
-      <label>Tool 2</label>
-      <input type="text" id="customName2" placeholder="Name (e.g., Roast Me)" class="tool-name-input">
-      <textarea id="customPrompt2" placeholder="Instruction (e.g., Write a sarcastic roast of this text...)"></textarea>
-    </div>
+      <!-- Custom Tool 2 -->
+      <div class="input-group">
+        <label>Tool 2</label>
+        <input type="text" id="customName2" placeholder="Name (e.g., Roast Me)" class="tool-name-input">
+        <textarea id="customPrompt2"
+          placeholder="Instruction (e.g., Write a sarcastic roast of this text...)"></textarea>
+      </div>
 
-    <!-- Custom Tool 3 -->
-    <div class="input-group">
-      <label>Tool 3</label>
-      <input type="text" id="customName3" placeholder="Name (e.g., French Trans)" class="tool-name-input">
-      <textarea id="customPrompt3" placeholder="Instruction (e.g., Translate this text to French...)"></textarea>
+      <!-- Custom Tool 3 -->
+      <div class="input-group">
+        <label>Tool 3</label>
+        <input type="text" id="customName3" placeholder="Name (e.g., French Trans)" class="tool-name-input">
+        <textarea id="customPrompt3" placeholder="Instruction (e.g., Translate this text to French...)"></textarea>
+      </div>
+      <button id="save">Save</button>
+      <div id="status" class="status"></div>
     </div>
-    <button id="save">Save</button>
-    <div id="status" class="status"></div>
-  </div>
-  <script src="options.js"></script>
+    <script src="options.js"></script>
 </body>
 
 </html>
