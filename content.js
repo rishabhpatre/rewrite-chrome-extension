@@ -340,6 +340,7 @@ function processText(type, text) {
     else if (type === 'explain') title = "Explanation";
     else if (type === 'proofread') title = "Proofread Text";
     else if (type === 'simplify') title = "Simplified Text";
+    else if (type === 'synonym') title = "Synonyms";
     else if (type === 'key_points') title = "Key Points";
     else if (type === 'action_items') title = "Action Items";
     else if (type === 'email') title = "Email Draft";

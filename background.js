@@ -53,6 +53,8 @@ async function handleGeneration(request, sendResponse) {
     } else if (type === "simplify") {
       // Simplify already enforces simple language, but reinforcing it is fine.
       prompt = withStyle(`Simplify the text using clear, commonly used language.\n\nRewrite the text so that:\n- The meaning and intent remain exactly the same\n- Sentences are shorter and easier to read\n- Complex or uncommon words are replaced with simple, everyday language\n- The tone remains neutral and natural\n- No information is added or removed\n\nIf the text is already simple and clear, return it unchanged.\n\nText:\n${text}`);
+    } else if (type === "synonym") {
+      prompt = withStyle(`Suggest better alternative words or short phrases for the selected text.\n\nRules:\n- Suggest only synonyms that fit the context of the sentence\n- Prefer commonly used, natural language\n- Avoid rare, academic, or AI-sounding words\n- Preserve the original meaning and tone\n- If no good alternatives exist, say so clearly\n\nReturn 5–8 options as a simple list.\nDo not include explanations.\n\nText:\n${text}`);
 
       // Platform Tools 
     } else if (type === "email") {
