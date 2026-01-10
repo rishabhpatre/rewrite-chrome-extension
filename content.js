@@ -120,7 +120,7 @@ function showIcon(selectionRect, text) {
     // More / Dropdown Trigger
     const moreBtn = document.createElement('div');
     moreBtn.className = 'rewrite-extension-item rewrite-extension-more';
-    moreBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+    moreBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>`;
     moreBtn.onclick = (e) => {
         e.stopPropagation();
         toggleDropdown(container, text);
@@ -265,7 +265,7 @@ async function toggleDropdown(parent, text) {
         { label: "Counter", type: "counter", icon: counterIcon, color: "icon-orange" },
         { label: "Ask a Question", type: "question", icon: questionIcon, color: "icon-blue" },
         { label: "Empathise", type: "empathise", icon: heartIcon, color: "icon-pink" },
-        { label: "Roast 🔥", type: "roast", icon: flameIcon, color: "icon-red" },
+        { label: "Roast", type: "roast", icon: flameIcon, color: "icon-red" },
         { label: "Accept Positively", type: "accept", icon: checkCircleIcon, color: "icon-green" },
         { label: "Reject Politely", type: "reject", icon: blockIcon, color: "icon-grey" }
     ]));
@@ -356,7 +356,7 @@ function processText(type, text) {
     else if (type === 'counter') title = "Counterpoint";
     else if (type === 'question') title = "Question";
     else if (type === 'empathise') title = "Empathetic Reply";
-    else if (type === 'roast') title = "Roast 🔥";
+    else if (type === 'roast') title = "Roast";
     else if (type === 'accept') title = "Acceptance";
     else if (type === 'reject') title = "Rejection";
 
