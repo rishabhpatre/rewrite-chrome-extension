@@ -5,33 +5,47 @@
   <title>Rewrite Extension Options</title>
   <style>
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f9fafb;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+        radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+        radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+      background-color: #111827;
+      /* Fallback/Base dark color */
       display: flex;
       justify-content: center;
-      padding-top: 50px;
+      padding-top: 60px;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      color: #f3f4f6;
     }
 
     .container {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      width: 400px;
+      background: rgba(31, 41, 55, 0.7);
+      /* Darker semi-transparent bg */
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 40px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+      width: 480px;
+      color: white;
     }
 
     h1 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: #111827;
-      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 2rem;
+      text-align: center;
+      letter-spacing: -0.025em;
     }
 
     label {
       display: block;
-      font-size: 0.875rem;
+      font-size: 0.9rem;
       font-weight: 500;
-      color: #374151;
+      color: #e5e7eb;
       margin-bottom: 0.5rem;
     }
 
@@ -45,18 +59,22 @@
     }
 
     button {
-      background-color: #2563eb;
+      background: linear-gradient(to right, #4f46e5, #ec4899);
+      /* Indigo to Pink fun gradient */
       color: white;
-      padding: 0.5rem 1rem;
+      padding: 0.75rem 1.5rem;
       border: none;
-      border-radius: 6px;
-      font-weight: 500;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
       cursor: pointer;
       width: 100%;
+      transition: opacity 0.2s;
+      margin-top: 1rem;
     }
 
     button:hover {
-      background-color: #1d4ed8;
+      opacity: 0.9;
     }
 
     .status {
@@ -68,16 +86,18 @@
     }
 
     .section-title {
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: 600;
-      color: #111827;
+      color: #ffffff;
+      /* Fixed visibility */
       margin-top: 2rem;
       margin-bottom: 0.5rem;
     }
 
     .section-subtitle {
       font-size: 0.875rem;
-      color: #6b7280;
+      color: #9ca3af;
+      /* Lighter gray for readability */
       margin-bottom: 1.5rem;
     }
 
@@ -94,20 +114,30 @@
 
     .input-group input[type="text"],
     input[type="password"],
-    textarea {
+    textarea,
+    select {
       width: 100%;
-      padding: 10px;
-      padding: 10px;
-      background: #f9fafb;
-      border: 1px solid #d1d5db;
-      border-radius: 6px;
-      color: #111827;
-      /* Dark text for visibility */
-      font-family: 'Inter', sans-serif;
+      padding: 12px;
+      background: rgba(17, 24, 39, 0.8);
+      /* Dark input bg */
+      border: 1px solid rgba(75, 85, 99, 0.4);
+      border-radius: 8px;
+      color: #f3f4f6;
+      font-family: 'Inter', system-ui, sans-serif;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 400;
       outline: none;
-      transition: border-color 0.2s;
+      transition: all 0.2s ease;
+    }
+
+    .input-group input[type="text"]:focus,
+    input[type="password"]:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #6366f1;
+      /* Indigo focus ring */
+      background: rgba(17, 24, 39, 1);
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
     }
 
     .tool-name-input {
@@ -138,8 +168,7 @@
     <h1>Settings</h1>
     <div class="input-group">
       <label for="providerSelect">AI Model Provider</label>
-      <select id="providerSelect"
-        style="width: 100%; padding: 10px; background: #f9fafb; border: 1px solid #d1d5db; border-radius: 6px; color: #111827; font-family: 'Inter', sans-serif; font-weight: 500; outline: none;">
+      <select id="providerSelect">
         <option value="gemini">Google Gemini</option>
         <option value="openai">OpenAI (ChatGPT)</option>
       </select>
@@ -166,8 +195,7 @@
     <div class="input-group">
       <div class="input-group">
         <label for="languageLevel">Language Level</label>
-        <select id="languageLevel"
-          style="width: 100%; padding: 10px; background: #f9fafb; border: 1px solid #d1d5db; border-radius: 6px; color: #111827; font-family: 'Inter', sans-serif; font-weight: 500; outline: none;">
+        <select id="languageLevel">
           <option value="neutral">Neutral (Default)</option>
           <option value="simple">Simple (Everyday Language)</option>
           <option value="professional">Professional</option>
