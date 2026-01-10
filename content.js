@@ -227,6 +227,7 @@ async function toggleDropdown(parent, text) {
     const heartIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
     const blockIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>`;
     const checkCircleIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`;
+    const flameIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.011 1.288-5.713 1.89-1.363 4.88-2.6 4.88-2.6s-1.025 2.68-1.55 3.59a2.49 2.49 0 0 0 .542 3.23c.536.44.33 1.29-.36 1.29a2.5 2.5 0 0 0-2.3 3.6c.15.53-.45 1-1.01.69a9 9 0 0 1-2.99-3.49"></path><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"></path></svg>`;
 
     const bugRealIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="4" ry="4"></rect><path d="M8 2v20"></path><path d="M16 2v20"></path><path d="M2 8h20"></path><path d="M2 16h20"></path></svg>`;
     const storyIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>`;
@@ -264,6 +265,7 @@ async function toggleDropdown(parent, text) {
         { label: "Counter", type: "counter", icon: counterIcon, color: "icon-orange" },
         { label: "Ask a Question", type: "question", icon: questionIcon, color: "icon-blue" },
         { label: "Empathise", type: "empathise", icon: heartIcon, color: "icon-pink" },
+        { label: "Roast 🔥", type: "roast", icon: flameIcon, color: "icon-red" },
         { label: "Accept Positively", type: "accept", icon: checkCircleIcon, color: "icon-green" },
         { label: "Reject Politely", type: "reject", icon: blockIcon, color: "icon-grey" }
     ]));
@@ -354,6 +356,7 @@ function processText(type, text) {
     else if (type === 'counter') title = "Counterpoint";
     else if (type === 'question') title = "Question";
     else if (type === 'empathise') title = "Empathetic Reply";
+    else if (type === 'roast') title = "Roast 🔥";
     else if (type === 'accept') title = "Acceptance";
     else if (type === 'reject') title = "Rejection";
 
