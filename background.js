@@ -33,6 +33,8 @@ async function handleGeneration(request, sendResponse) {
       prompt = `Extract the key points from the text as concise bullet points. Use the author's wording where possible. Do not add new information. If no clear key points exist, say so. Do NOT use markdown bold/italics.\n\nText:\n${text}`;
     } else if (type === "action_items") {
       prompt = `Extract clear action items from the text. Write each action as a short imperative sentence. Do not infer or add tasks. If no action items are present, say "No action items found." Do NOT use markdown bold/italics.\n\nText:\n${text}`;
+    } else if (type === "simplify") {
+      prompt = `Simplify the text using clear, commonly used English.\n\nRewrite the text so that:\n- The meaning and intent remain exactly the same\n- Sentences are shorter and easier to read\n- Complex or uncommon words are replaced with simple, everyday language\n- The tone remains neutral and natural\n- No information is added or removed\n\nIf the text is already simple and clear, return it unchanged.\n\nText:\n${text}`;
 
       // Platform Tools 
     } else if (type === "email") {
