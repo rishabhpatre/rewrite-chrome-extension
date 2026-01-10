@@ -14,7 +14,7 @@ async function handleGeneration(request) {
   try {
     const { type, text } = request;
     // Retrieve API key from storage
-    const data = await chrome.storage.sync.get(["geminiApiKey", "customPrompt"]);
+    const data = await chrome.storage.sync.get(["geminiApiKey", "customPrompt1", "customPrompt2", "customPrompt3"]);
     const apiKey = data.geminiApiKey;
 
     if (!apiKey) {
@@ -56,10 +56,31 @@ async function handleGeneration(request) {
       prompt = `Convert the text into a JIRA task with a clear title, description, and bullet-pointed subtasks if applicable. Do not include user story or bug language. Use only the information provided. Do NOT use markdown bold ** or italics *.\n\nText:\n${text}`;
 
       // Custom Tool
-    } else if (type === "custom") {
-      const customPrompt = data.customPrompt;
+    } else if (type === "smart_reply") {
+      prompt = `You are writing a high-quality reply to a public post meant to stand out.\n\nRead the post below and write a concise reply that:\n- Takes a clear stance: appreciation, constructive critique, thoughtful counterpoint, or a meaningful question\n- Adds a new perspective instead of summarizing the post\n- Does NOT restate or paraphrase the post\n- Is concise (1–2 sentences max)\n- Sounds confident, natural, and professional\n- Feels like it was written by a real person, not an AI\n- Avoids emojis and hashtags\n\nIf possible, include a subtle insight or implication that invites discussion.\n\nReturn only the reply text.\n\nPost:\n${text}`;
+    } else if (type === "appreciate") {
+      prompt = `You are writing a thoughtful appreciation reply to a public post.\n\nRead the post below and write a concise reply that:\n- Clearly appreciates or agrees with the idea\n- Adds a meaningful insight or extension of the thought\n- Avoids generic praise\n- Does NOT summarize or restate the post\n- Is concise (1–2 sentences max)\n- Sounds confident, professional, and human\n- Avoids emojis and hashtags\n\nReturn only the reply text.\n\nPost:\n${text}`;
+    } else if (type === "critique") {
+      prompt = `You are writing a constructive critique to a public post.\n\nRead the post below and write a concise reply that:\n- Acknowledges the core idea but challenges a limitation, assumption, or missing nuance\n- Is respectful and professional, not confrontational\n- Adds a thoughtful perspective rather than summarizing\n- Does NOT restate or paraphrase the post\n- Is concise (1–2 sentences max)\n- Sounds balanced, confident, and human\n- Avoids emojis and hashtags\n\nReturn only the reply text.\n\nPost:\n${text}`;
+    } else if (type === "counter") {
+      prompt = `You are writing a counterpoint to a public post.\n\nRead the post below and write a concise reply that:\n- Presents a clear alternative or opposing perspective\n- Is confident but respectful\n- Introduces a new way of thinking\n- Does NOT summarize or restate the post\n- Is concise (1–2 sentences max)\n- Sounds thoughtful, intelligent, and human\n- Avoids emojis and hashtags\n\nReturn only the reply text.\n\nPost:\n${text}`;
+    } else if (type === "question") {
+      prompt = `You are writing a thoughtful question in response to a public post.\n\nRead the post below and write a concise reply that:\n- Asks one insightful, non-obvious question\n- Is inspired by the implications or assumptions of the post\n- Does NOT summarize or restate the post\n- Encourages discussion or deeper thinking\n- Is concise (1 sentence preferred, max 2)\n- Sounds curious, natural, and professional\n- Avoids emojis and hashtags\n\nReturn only the question text.\n\nPost:\n${text}`;
+    } else if (type === "empathise") {
+      prompt = `You are writing an empathetic reply to a public post.\n\nRead the post below and write a concise reply that:\n- Acknowledges the emotion, experience, or challenge expressed\n- Shows understanding without giving advice or solutions\n- Avoids clichés and platitudes\n- Does NOT summarize or restate the post\n- Is concise (1–2 sentences max)\n- Sounds genuine, respectful, and human\n- Avoids emojis and hashtags\n\nReturn only the reply text.\n\nPost:\n${text}`;
+    } else if (type === "reject") {
+      prompt = `You are writing a polite rejection reply to a public post.\n\nRead the post below and write a concise reply that:\n- Clearly but respectfully disagrees or declines the idea\n- Maintains a calm, professional, non-confrontational tone\n- Does NOT attack the author or their intent\n- Does NOT summarize or restate the post\n- Is concise (1–2 sentences max)\n- Sounds composed, thoughtful, and human\n- Avoids emojis and hashtags\n\nReturn only the reply text.\n\nPost:\n${text}`;
+    } else if (type === "accept") {
+      prompt = `You are writing a positive acceptance reply to a public post.\n\nRead the post below and write a concise reply that:\n- Clearly expresses agreement or acceptance\n- Signals alignment or willingness to move forward\n- Adds a small positive or forward-looking note\n- Does NOT summarize or paraphrase the post\n- Is concise (1–2 sentences max)\n- Sounds confident, constructive, and human\n- Avoids emojis and hashtags\n\nReturn only the reply text.\n\nPost:\n${text}`;
+
+    } else if (type === "custom1" || type === "custom2" || type === "custom3") {
+      let customPrompt = "";
+      if (type === "custom1") customPrompt = data.customPrompt1;
+      if (type === "custom2") customPrompt = data.customPrompt2;
+      if (type === "custom3") customPrompt = data.customPrompt3;
+
       if (!customPrompt || customPrompt.trim() === "") {
-        return { error: "Custom Prompt not set. Please go to Extension Options to configure it." };
+        return { error: `Custom Prompt for ${type.replace('custom', 'Tool ')} not set. Please Configure Options.` };
       }
       prompt = `You are a precise AI assistant. Follow the instruction below applied to the text.
 
