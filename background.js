@@ -171,6 +171,9 @@ async function callOpenAI(apiKey, userPrompt) {
 
   const data = await response.json();
   if (!response.ok) {
+    if (response.status === 429) {
+      throw new Error("Quota exceeded! 😅 Try a different key/LLM in Options, or see you in 24 hours! ⏳");
+    }
     throw new Error(data.error?.message || "OpenAI API Error");
   }
 
@@ -194,6 +197,9 @@ async function callGemini(apiKey, prompt) {
 
   const data = await response.json();
   if (!response.ok) {
+    if (response.status === 429) {
+      throw new Error("Quota exceeded! 😅 Try a different key/LLM in Options, or see you in 24 hours! ⏳");
+    }
     throw new Error(data.error?.message || "Gemini API Error");
   }
 
