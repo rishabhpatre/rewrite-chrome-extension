@@ -115,7 +115,21 @@
 
     .input-group input[type="text"],
     input[type="password"],
-    textarea,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      /* No right padding needed */
+      background-color: rgba(17, 24, 39, 0.8);
+      border: 1px solid rgba(75, 85, 99, 0.4);
+      border-radius: 8px;
+      color: #f3f4f6;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
     select {
       width: 100%;
       padding: 12px;
