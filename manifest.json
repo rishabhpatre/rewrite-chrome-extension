@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Draftly - AI Writing Companion",
-  "version": "1.0",
-  "description": "Your global AI writing assistant. Rewrite, summarize, translate, draft replies, and create Jira tickets from any text.",
+  "name": "Draftly - AI Writing Copilot",
+  "version": "2.1",
+  "description": "The Ultimate AI Writing Copilot. Rewrite, Reply, Translate, and Manage Projects with Google Gemini or OpenAI.",
   "permissions": [
     "activeTab",
     "scripting",

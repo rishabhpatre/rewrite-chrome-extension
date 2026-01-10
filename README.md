@@ -1,52 +1,56 @@
-# Draftly - AI Writing Companion
+# Draftly - AI Writing Copilot
 
-**Draftly** is your all-in-one AI writing assistant for Chrome. Select any text on the web to Rewrite, Summarize, Translate, or generate professional content instantly using Google's Gemini API.
+**Draftly** is the ultimate AI writing copilot for Chrome. Select any text on the web to Rewrite, Reply, Translate, or generate professional content instantly using **Google Gemini** or **OpenAI (ChatGPT)**.
 
 ![Logo](icons/icon128.png)
 
 ## ✨ Features
 
 ### ⚡ Core Actions
--   **🖊️ Rewrite**: Fix grammar, improve flow, and enhance tone.
--   **📝 Summarize**: concise summaries of long articles.
--   **文 Translate**: Smart translation (English <-> Hindi/Global languages).
--   **💡 Explain**: Simple layman's explanations for complex terms.
+- **🖊️ Rewrite**: Fix grammar, improve flow, and enhance tone.
+- **📝 Summarize**: Concise summaries of long articles.
+- **文 Translate**: Smart translation into English or Hindi.
+- **💡 Explain**: Simple layman's explanations for complex terms.
+
+### 💬 Reply Tools (New!)
+*Perfect for LinkedIn, Twitter, and Email.*
+- **🚀 Smart Reply**: Context-aware high-quality replies.
+- **❤️ Appreciate**: Thoughtful appreciation messages.
+- **🤔 Question**: Ask insightful follow-up questions.
+- **🔥 Critique & Counter**: Constructive professional disagreements.
+- **🤝 Accept/Reject**: Polite professional responses.
 
 ### 🛠️ Writing Tools
--   **✅ Proofread**: Fix grammar and spelling without changing tone.
--   **🔑 Key Points**: Extract bullet points from dense text.
--   **📋 Action Items**: Identify actionable tasks and to-dos.
+- **✅ Proofread**: Fix grammar/spelling instantly.
+- **🔑 Key Points**: Extract bullet points.
+- **📋 Action Items**: Identify tasks and to-dos.
 
-### 💬 Social & Platform
--   **📧 Email**: Draft professional email responses with context.
--   **📱 WhatsApp**: Convert text into casual, natural messages.
--   **🐦 Tweet**: Generate compelling, short-form posts (280 chars).
-
-### 🚀 Project Management (Jira/Agile)
--   **🐞 Bug Report**: Auto-format Selection into a structured Jira Bug.
--   **📖 User Story**: Generate standard User Stories with Acceptance Criteria.
--   **⚙️ Task**: Create technical task descriptions instantly.
+### 🚀 Project Management
+- **🐞 Bug Report**: Auto-format Selection into a Jira Bug.
+- **📖 User Story**: Generate Agile User Stories.
+- **⚙️ Task**: Create technical task descriptions.
 
 ### 🌟 Power User Features
--   **✨ Custom Tool**: Define your own AI prompt in Settings (e.g., "Translate to Spanish & add emoji").
--   **📋 One-Click Copy**: Instantly copy results to clipboard.
--   **🔒 Secure (BYOK)**: Bring Your Own Key. Your API key is stored locally; no data touches our servers.
+- **🤖 Multi-LLM Support**: Choose between **Google Gemini** (Free Tier) or **OpenAI** (ChatGPT).
+- **✨ 3 Custom Tools**: Define your own AI prompts (e.g., "Roast this", "Explain to 5yo").
+- **📊 Dashboard UI**: A beautiful 3-column dashboard for quick access.
+- **🔒 Secure (BYOK)**: Bring Your Own Key. Your keys are stored locally; no data touches our servers.
 
 ## Installation
 
 ### Manual Installation (Developer Mode)
-1.  Clone this repository or download the ZIP.
-2.  Open Chrome and go to `chrome://extensions`.
-3.  Enable **Developer mode** (top right).
-4.  Click **Load unpacked** and select the project folder.
-5.  Right-click the extension icon -> **Options** -> Enter your Gemini API Key.
+1. Clone this repository or download the ZIP.
+2. Open Chrome and go to `chrome://extensions`.
+3. Enable **Developer mode** (top right).
+4. Click **Load unpacked** and select the project folder.
+5. Right-click the extension icon -> **Options** -> Select Provider -> Enter API Key.
 
 ## Tech Stack
--   **Frontend**: Vanilla JavaScript, HTML5, CSS3 (Modern Glassmorphism/Dark UI).
--   **Backend**: Chrome Extension V3 Manifest, Google Gemini API.
+- **Frontend**: Vanilla JavaScript, HTML5, CSS3 (Modern Glassmorphism/Dark UI).
+- **Backend**: Chrome Extension V3 Manifest, Google Gemini API, OpenAI API.
 
 ## Privacy
-This extension processes text only when you explicitly click a button. Data is sent directly to the Google Gemini API for processing. Your API key is stored locally in your browser (`chrome.storage.sync`) and is never shared.
+This extension processes text only when you explicitly click a button. Data is sent directly to the AI provider (Google or OpenAI) for processing. Your keys are stored locally (`chrome.storage.sync`) and are never shared.
 
 ## Screenshots
 ![Draftly Demo](screenshots/demo.png)
