@@ -363,7 +363,7 @@ function processText(type, text) {
     else if (type === 'accept') title = "Acceptance";
     else if (type === 'reject') title = "Rejection";
 
-    showModal("Loading...", title);
+    showModal("Loading...", title, type, text);
 
     chrome.runtime.sendMessage({ action: "generate_text", type, text }, (response) => {
         if (chrome.runtime.lastError) {
@@ -383,7 +383,8 @@ function processText(type, text) {
     });
 }
 
-function showModal(initialContent, titleText = "AI Result") {
+function showModal(initialContent, titleText = "AI Result", type, originalText) {
+    if (activeModal) closeModal();
     // Overlay
     const overlay = document.createElement('div');
     overlay.className = 'rewrite-extension-overlay';
@@ -407,23 +408,48 @@ function showModal(initialContent, titleText = "AI Result") {
     actionsDiv.style.alignItems = 'center';
     actionsDiv.style.gap = '10px';
 
+    // SVG Icons
+    const copyIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
+    const checkIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+    const refreshIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>`;
+    const closeIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`; // Keep original for reference if needed, but we replace below.
+    // Actually, I am replacing the constant definition directly.
+
+    const closeIconLarger = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="20" y1="4" x2="4" y2="20"></line><line x1="4" y1="4" x2="20" y2="20"></line></svg>`;
+
     const copyBtn = document.createElement('button');
-    copyBtn.className = 'rewrite-extension-close'; // Reuse style for simplicity or create new
-    copyBtn.style.fontSize = '16px';
-    copyBtn.innerHTML = '📋'; // Clipboard icon
+    copyBtn.className = 'rewrite-extension-close';
+    copyBtn.style.width = '20px';
+    copyBtn.style.height = '20px';
+    copyBtn.innerHTML = copyIcon;
     copyBtn.title = "Copy to clipboard";
     copyBtn.onclick = () => {
         const textToCopy = document.getElementById('rewrite-extension-output').textContent;
         navigator.clipboard.writeText(textToCopy).then(() => {
-            copyBtn.innerHTML = '✅';
-            setTimeout(() => copyBtn.innerHTML = '📋', 2000);
+            copyBtn.innerHTML = checkIcon;
+            setTimeout(() => copyBtn.innerHTML = copyIcon, 2000);
         });
     };
 
     const closeBtn = document.createElement('button');
     closeBtn.className = 'rewrite-extension-close';
-    closeBtn.innerHTML = '&times;';
+    closeBtn.style.width = '20px';
+    closeBtn.style.height = '20px';
+    closeBtn.innerHTML = closeIconLarger;
     closeBtn.onclick = closeModal;
+
+    if (type && originalText) {
+        const regenBtn = document.createElement('button');
+        regenBtn.className = 'rewrite-extension-close';
+        regenBtn.style.width = '20px';
+        regenBtn.style.height = '20px';
+        regenBtn.innerHTML = refreshIcon;
+        regenBtn.title = "Regenerate";
+        regenBtn.onclick = () => {
+            processText(type, originalText);
+        };
+        actionsDiv.appendChild(regenBtn);
+    }
 
     actionsDiv.appendChild(copyBtn);
     actionsDiv.appendChild(closeBtn);
